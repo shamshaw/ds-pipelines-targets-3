@@ -14,6 +14,7 @@ source("1_fetch/src/find_oldest_sites.R")
 source("1_fetch/src/get_site_data.R")
 source("1_fetch/src/get_state_inventory.R")
 source("2_process/src/tally_site_obs.R")
+source("2_process/src/summarize_targets.R")
 source("3_visualize/src/plot_site_data.R")
 source("3_visualize/src/map_sites.R")
 source("3_visualize/src/plot_data_coverage.R")
@@ -38,9 +39,23 @@ list(
   # Identify oldest sites
   tar_target(oldest_active_sites, find_oldest_sites(states, parameter)),
 
+  # split and apply by state
   mapped_by_state_targets,
 
-  tar_combine(obs_tallies, mapped_by_state_targets$tally, command = combine_obs_tallies(!!!.x)),
+  # combine state tally output
+  tar_combine(
+    obs_tallies,
+    mapped_by_state_targets$tally,
+    command = combine_obs_tallies(!!!.x)
+    ),
+
+  # combine output timeseries plots into log file
+  tar_combine(
+    summary_state_timeseries_csv,
+    mapped_by_state_targets$timeseries_png,
+    command = summarize_targets('3_visualize/log/summary_state_timeseries.csv', !!!.x),
+    format="file"
+  ),
 
   # Map oldest sites
   tar_target(
@@ -49,6 +64,7 @@ list(
     format = "file"
   ),
 
+  # Plot time series of data coverage by state
   tar_target(
     data_coverage_png,
     plot_data_coverage(obs_tallies, "3_visualize/out/data_coverage.png", parameter),
