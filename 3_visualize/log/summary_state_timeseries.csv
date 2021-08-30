@@ -1,8 +1,9 @@
 tar_name,filepath,hash
-timeseries_png_WI,NA,7d1052ce21757831
-timeseries_png_MN,NA,95e1dbf9b67b3d39
-timeseries_png_MI,NA,add660a1dd56db92
-timeseries_png_IL,NA,849999a8aca5209b
-timeseries_png_IN,NA,f15dae290b19f1e0
-timeseries_png_IA,NA,5f6333243918d7b8
-timeseries_png_VT,NA,3734292c44d3c344
+timeseries_png_WI,3_visualize/out/timeseries_WI.png,67227561631fada7
+timeseries_png_MN,3_visualize/out/timeseries_MN.png,67293bfd54a0458a
+timeseries_png_MI,3_visualize/out/timeseries_MI.png,342c9b1546a9627a
+timeseries_png_IL,3_visualize/out/timeseries_IL.png,7433638f9adb753c
+timeseries_png_IN,3_visualize/out/timeseries_IN.png,7fe4d265339990dd
+timeseries_png_IA,3_visualize/out/timeseries_IA.png,55799c06f454377e
+timeseries_png_NH,3_visualize/out/timeseries_NH.png,cd1932bdb3565fc9
+timeseries_png_VT,3_visualize/out/timeseries_VT.png,a6e313a011456cee
