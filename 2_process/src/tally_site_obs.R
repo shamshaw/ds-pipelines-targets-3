@@ -9,3 +9,13 @@ tally_site_obs <- function(site_data) {
     group_by(Site, State, Year) %>%
     summarize(NumObs = length(which(!is.na(Value))), .groups = "keep")
 }
+
+# -------------------------
+
+# function to concatenate by rows multiple data frames
+combine_obs_tallies <- function(...){
+
+  combined_data <- bind_rows(...)
+
+  return(combined_data)
+}
