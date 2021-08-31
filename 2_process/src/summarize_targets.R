@@ -1,7 +1,7 @@
 # function to generate a csv log file of output files
 
-summarize_targets <- function(ind_file, ...) {
-  ind_tbl <- tar_meta(c(...)) %>%
+summarize_targets <- function(ind_file, file_list) {
+  ind_tbl <- tar_meta(all_of(file_list)) %>%
     select(tar_name = name, filepath = path, hash = data) %>%
     mutate(filepath = unlist(filepath))
 
