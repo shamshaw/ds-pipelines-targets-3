@@ -2,7 +2,8 @@ suppressPackageStartupMessages(c(
 library(targets),
 library(tarchetypes),
 library(tibble),
-library(dplyr))
+library(dplyr),
+library(retry))
 )
 
 
@@ -21,7 +22,10 @@ source("3_visualize/src/plot_data_coverage.R")
 source("3_visualize/src/map_timeseries.R")
 
 # Configuration
-states <- c('WI','MN','MI','IL','IN','IA','NH','VT')
+states <- c('AL','AZ','AR','CA','CO','CT','DE','DC','FL','GA','ID','IL','IN','IA',
+            'KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH',
+            'NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX',
+            'UT','VT','VA','WA','WV','WI','WY','AK','HI','GU','PR')
 parameter <- c('00060')
 
 # Targets
@@ -38,7 +42,7 @@ mapped_by_state_targets <- tar_map(
 
   tar_target(
     nwis_data,
-    get_site_data(nwis_inventory, state_abb, parameter)
+    retry(get_site_data(nwis_inventory, state_abb, parameter),when = "Ugh, the internet data transfer failed!", max_tries = 30)
     ),
 
   tar_target(
